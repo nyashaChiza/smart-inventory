@@ -160,17 +160,11 @@ EMAIL_HOST_USER = config('EMAIL_HOST_USER')
 DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
 
-ADMINS = [
-    ("Nyasha", "nyashac@petalmafrica.com"),
-    ("Courage", "courage@petalmafrica.com"),
-]
-DEFAULT_SYSTEM_USER_EMAIL = "dev@oacey.com"
 DEFAULT_RECIPIENT = config('DEFAULT_RECIPIENT')
+
 path_separator = "\\" if platform.system() == "Windows" else "/"
-ASN_FILE_DESTINATION = os.path.join(BASE_DIR, f"media{path_separator}asn{path_separator}")
 MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
-TEST_FILE_STORAGE = os.path.join(BASE_DIR, f"test-data{path_separator}results.xlsx")
 
 STATUS_CHOICES = (('Success', 'Success'), ('Failed', 'Failed'),('Pending', 'Pending'), ('Rejected', 'Rejected'))
 
