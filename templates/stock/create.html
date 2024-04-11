@@ -1,0 +1,66 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-light rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">Add Stock</h3>
+                <div class="nk-block-des text-soft">
+               
+                </div>
+            </div>
+            <ul class="nk-block-tools g-3">
+                <a href="{% url 'stock_list' %}"  class="btn btn-white btn-dim btn-outline-light mx-1">Back</a>
+            </ul>
+        
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card-inner border border-light rounded my-3">
+    <div class="card-head">
+        <h5 class="card-title">Add New Stock</h5>
+    </div>
+    <form action="#">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label" for="cf-full-name">Name</label>
+                <input type="text" name="name" class="form-control" id="cf-full-name">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label" for="cf-email-address">Quantity</label>
+                <input type="number" name="quantity" class="form-control" id="cf">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label" for="cf-phone-no">Unit Price</label>
+                <input type="number" name="price" class="form-control" id="cf-phone-no">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label" for="cf-phone-no">Category</label>
+                <select class="form-select js-select2 select2-hidden-accessible" name="category" data-search="on" id="5" name="category">
+                    {% for category in form.category.field.queryset %}
+                        <option value="{{ category.pk }}">{{ category.name }}</option>
+                    {% endfor %}
+                </select>
+                
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="cf-default-textarea">Description</label>
+            <div class="form-control-wrap">
+                <textarea name="description" class="form-control form-control-sm" id="cf-default-textarea" placeholder="Write description"></textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
