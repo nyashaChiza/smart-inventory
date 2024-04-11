@@ -11,3 +11,6 @@ class Stock(models.Model):
     
     def __str__(self) -> str:
         return self.name
+    
+    def total_sales(self):
+        return sum([move.total_cost() for move in self.movements.all()])

@@ -9,9 +9,12 @@ class StockMovement(models.Model):
     current_quantity = models.IntegerField(default = 0)
     movement_type = models.CharField(choices=MOVEMENT_TYPES ,  max_length=255)
     price = models.IntegerField(default = 0)
-    stock = models.ForeignKey('inventory.Stock', on_delete=models.CASCADE , related_name='stock')
+    stock = models.ForeignKey('inventory.Stock', on_delete=models.CASCADE , related_name='movements')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
         return self.name
+    
+    def total_cost(self) -> float:
+        return self.price * self.movement_quantity
