@@ -29,6 +29,7 @@ INSTALLED_APPS = [
 
     #apps
     'integration.apps.IntegrationConfig',
+    'inventory.apps.InventoryConfig',
     
     #3rd part apps
     "crispy_forms",

@@ -9,6 +9,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('dashboard.urls'), name='dashboard'),
     path('', include('accounts.urls')),
+    path('inventory/', include('inventory.urls')),
     path('integration/', include('integration.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
