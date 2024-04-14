@@ -12,10 +12,17 @@
                
                 </div>
             </div>
-            <ul class="nk-block-tools g-3">
-                    <a href="{% url 'stock_create' %}"  class="btn btn-white btn-dim btn-outline-light mx-1">Add Stock</a>
-            </ul>
-        
+            <div class="dropdown">
+                <a href="#" class="btn btn-primary" data-bs-toggle="dropdown"><span>Actions</span><em class="icon ni ni-chevron-down"></em></a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-auto mt-1  btn-white btn-dim bg-outline-light mx-1">
+                    <ul class="link-list-plain">
+                        <li><a href="{% url 'stock_create' %}">Add stock</a></li>
+                        <li><a href="{% url 'category_create' %}">Add Category</a></li>
+                       
+                    </ul>
+                </div>
+            </div>
+            
 </div>
 {% endblock %}
 
@@ -41,7 +48,7 @@
                         <td>{{ stock }}</td>
                         <td>{{ stock.category }}</td>
                         <td>{{ stock.quantity }}</td>
-                        <td>{{ stock.total_sales }}</td>
+                        <td>${{ stock.total_sales|floatformat:2 }}</td>
                         <td>{{ stock.created }}</td>
 
                         <td class="nk-tb-col nk-tb-col-tools">
@@ -54,7 +61,7 @@
                                                 <li><a data-bs-toggle="modal" data-bs-target="#modalStockMovement{{stock.pk}}" ><em class="icon ni ni-property-add"></em>Add Movement</a></li>
                                                 <li><a href="{% url 'stock_update' stock.pk %}"><em class="icon ni ni-text-rich"></em><span>Update</span></a></li>
                                                 <li><a href="{% url 'stockmovement_list' stock.pk %}"><em class="icon ni ni-text-rich"></em><span>movements</span></a></li>
-                                                <li><a data-bs-toggle="modal" data-bs-target="#modalStockAction{{stock.pk}}" class="text-danger"><em class="icon ni ni-trash text-danger"></em><span class='text-danger'>Delete</span></a></li>
+                                                {% comment %} <li><a data-bs-toggle="modal" data-bs-target="#modalStockAction{{stock.pk}}" class="text-danger"><em class="icon ni ni-trash text-danger"></em><span class='text-danger'>Delete</span></a></li> {% endcomment %}
                                                  
                                             </ul>
                                         </div>

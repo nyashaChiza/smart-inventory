@@ -171,6 +171,7 @@ STATUS_CHOICES = (('Success', 'Success'), ('Failed', 'Failed'),('Pending', 'Pend
 
 LOGGER = loguru.logger
 
+FRAUD_SCORE_THRESHOLD = 70
 INTERNAL_IPS = [
     '127.0.0.1',
 ]

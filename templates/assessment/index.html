@@ -7,7 +7,7 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between py-3 px-3 bg-light rounded-3">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Stock Movements For {{stock}} </h3>
+                <h3 class="nk-block-title page-title">Movement Assessment </h3>
                 <div class="nk-block-des text-soft">
                
                 </div>
@@ -29,22 +29,24 @@
                     <tr>
                         <th>Stock</th>
                         <th>Movement Type</th>
-                        <th>Movement Quantity</th>
                         <th>Previous Quantity</th>
+                        <th>Movement Quantity</th>
                         <th>Remaining Quantity</th>
+                        <th>Status</th>
                         <th>Created</th>
-
+                        
                     </tr>
                 </thead>
                 <tbody>
-                    {% for movement in stockmovements %}
+                    {% for movement in movements %}
                     <tr>
                       
-                        <td>{{ movement.stock }}</td>
+                        <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ movement.status_comment }}"><a href="{% url 'assessment_detail' movement.pk %}">{{ movement.stock }}</a></td>
                         <td>{{ movement.movement_type }}</td>
-                        <td>{{ movement.movement_quantity }}</td>
                         <td>{{ movement.previous_quantity }}</td>
+                        <td>{{ movement.movement_quantity }}</td>
                         <td>{{ movement.current_quantity }}</td>
+                        <td>{{ movement.movement_status }}</td>
                         <td>{{ movement.created }}</td>
 
                         

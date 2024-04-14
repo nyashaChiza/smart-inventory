@@ -1,1 +1,2 @@
 from inventory.forms.stock_movement import StockMovementForm
+from inventory.forms.assessment_form import AssessmentForm

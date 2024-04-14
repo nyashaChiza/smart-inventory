@@ -11,6 +11,7 @@ class StockMovement(models.Model):
     current_quantity = models.IntegerField(default = 0)
     movement_type = models.CharField(choices=MOVEMENT_TYPES , max_length=255)
     movement_status = models.CharField(choices=MOVEMENT_STATUSES , default='Pending', max_length=255)
+    status_comment = models.TextField(blank=True, null=True) 
     price = models.IntegerField(default = 0)
     stock = models.ForeignKey('inventory.Stock', on_delete=models.CASCADE , related_name='movements')
     created = models.DateTimeField(auto_now_add=True)

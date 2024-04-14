@@ -1,0 +1,109 @@
+{% extends 'layouts/base.html' %} 
+{% load static %} 
+
+{% block navigation %}
+<div class="nk-content-body">
+  <div class="nk-block-head nk-block-head-sm">
+    <div class="nk-block-between py-3 px-3 bg-light rounded-3">
+      <div class="nk-block-head-content">
+        <h3 class="nk-block-title page-title">Movement Assessment</h3>
+        <div class="nk-block-des text-soft"></div>
+      </div>
+      <ul class="nk-block-tools g-3">
+        <a
+          href="{% url 'assessment_list' %}"
+          class="btn btn-white btn-dim btn-outline-light mx-1"
+          >Back</a
+        >
+      </ul>
+    </div>
+    {% endblock %} 
+    
+    {% block content %}
+    <div class="card card-bordered card-full my-2 rounded-2">
+      <div class="card-inner-group">
+        <div class="card-inner">
+          <div class="card-title-group">
+            <div class="card-title">
+              <h6 class="title">ASSESSMENT CHECKLIST</h6>
+            </div>
+            <div class="card-tools">
+              <span class="link">CHECK</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>FS</span>
+            </div>
+            <div class="user-info">
+              <span>Fraud Status</span>
+            </div>
+            <div class="user-action">
+              {% if assessment.status %}<em class="icon ni ni-check-circle-cut bg-outline-success"></em>{% else %}
+              <em class="icon ni ni-cross-circle bg-outline-danger"></em>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>WL</span>
+            </div>
+            <div class="user-info">Quantity Within Movement Limits</div>
+            <div class="user-action">
+              {% if assessment.within_limits %}<em class="icon ni ni-check-circle-cut bg-outline-success" ></em >{% else %}
+              <em class="icon ni ni-cross-circle bg-outline-danger"></em>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>FS</span>
+            </div>
+            <div class="user-info">
+              <span>Fraud Score Below Limit</span>
+            </div>
+            <div class="user-action">
+              {% if assessment.fraud_score_threshold_status %}<em
+                class="icon ni ni-check-circle-cut bg-outline-success"
+              ></em
+              >{% else %}
+              <em class="icon ni ni-cross-circle bg-outline-danger"></em>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card card-bordered card-full my-2 rounded-2  px-2 py-2">
+      <form action="{% url 'assess_movement' movement.pk %}" method="post" class="form-validate is-alter">
+        {% csrf_token %}
+        <div class="card-title py-2">
+            <h6 class="title">ASSESSMENT</h6>
+          </div>
+        <div class="form-group">
+          <label class="form-label" for="full-name">Set Status </label>
+          <div class="form-control-wrap">{{ assessment_form.movement_status }}</div>
+        </div>
+
+        <div class="form-group">
+          <label class="form-label" for="pay-amount">Description</label>
+          <div class="form-control-wrap">
+            {{ assessment_form.status_comment }}
+          </div>
+        </div>
+        <div class="form-group">
+          <button type="submit" class="btn btn-lg btn-primary">Save</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

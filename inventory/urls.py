@@ -19,6 +19,10 @@ from .views import (
     CategoryCreateView,
     CategoryUpdateView,
     CategoryDeleteView,
+    
+    MovementDetailView,
+    MovementListView,
+    assessment_view
 )
 urlpatterns = [
     path('stocks/', StockListView.as_view(), name='stock_list'),
@@ -39,5 +43,9 @@ urlpatterns = [
     path('categories/create/', CategoryCreateView.as_view(), name='category_create'),
     path('categories/<int:pk>/update/', CategoryUpdateView.as_view(), name='category_update'),
     path('categories/<int:pk>/delete/', CategoryDeleteView.as_view(), name='category_delete'),
+    
+    path('assessment/', MovementListView.as_view(), name='assessment_list'),
+    path('assessment/<int:pk>/', MovementDetailView.as_view(), name='assessment_detail'),
+    path('assessment/movement/<int:pk>/', assessment_view, name='assess_movement'),
 ]
 

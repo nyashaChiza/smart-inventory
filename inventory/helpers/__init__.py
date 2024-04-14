@@ -1,0 +1,1 @@
+from inventory.helpers.assessment import get_movement_assessment
