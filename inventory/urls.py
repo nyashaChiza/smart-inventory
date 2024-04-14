@@ -6,6 +6,7 @@ from .views import (
     StockCreateView, 
     StockUpdateView,
     StockDeleteView,
+    add_stock_movements,
     
     StockMovementListView,
     StockMovementDetailView,
@@ -25,8 +26,9 @@ urlpatterns = [
     path('stocks/create/', StockCreateView.as_view(), name='stock_create'),
     path('stocks/<int:pk>/update/', StockUpdateView.as_view(), name='stock_update'),
     path('stocks/<int:pk>/delete/', StockDeleteView.as_view(), name='stock_delete'),
+    path('stocks/add-movement/<int:pk>', add_stock_movements, name='add_movement'), 
     
-    path('stockmovements/', StockMovementListView.as_view(), name='stockmovement_list'),
+    path('stockmovements/<int:pk>', StockMovementListView.as_view(), name='stockmovement_list'),
     path('stockmovements/<int:pk>/', StockMovementDetailView.as_view(), name='stockmovement_detail'),
     path('stockmovements/create/', StockMovementCreateView.as_view(), name='stockmovement_create'),
     path('stockmovements/<int:pk>/update/', StockMovementUpdateView.as_view(), name='stockmovement_update'),

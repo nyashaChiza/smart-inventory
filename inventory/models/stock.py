@@ -13,4 +13,4 @@ class Stock(models.Model):
         return self.name
     
     def total_sales(self):
-        return sum([move.total_cost() for move in self.movements.all()])
+        return sum([move.total_cost() for move in self.movements.filter(movement_type='SALE').all()])
