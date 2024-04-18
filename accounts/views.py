@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
 from django.views.generic import ListView, UpdateView, DeleteView
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from django.contrib.messages.views import SuccessMessageMixin
 
@@ -11,7 +11,6 @@ from django.contrib.auth.views import PasswordResetView
 from django.template.loader import render_to_string
 from django.core.mail import EmailMessage
 from django.contrib.auth.views import PasswordResetView
-
 from django.contrib.auth import authenticate, login
 from django.urls import reverse_lazy
 from django.views.generic import FormView
@@ -124,3 +123,11 @@ class CustomPasswordResetView(PasswordResetView):
 
         email_message.content_subtype = "html"
         email_message.send()
+
+
+def logout_view(request):
+    # Use the logout() function to log the user out
+
+    logout(request)
+    messages.success(request, "You have been logged out.")
+    return redirect("login")
