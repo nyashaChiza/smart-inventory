@@ -169,10 +169,11 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 MEDIA_URL = "/media/"
 
 STATUS_CHOICES = (('Success', 'Success'), ('Failed', 'Failed'),('Pending', 'Pending'), ('Rejected', 'Rejected'))
-
+TRANSACTION_FREQUENCY_WEIGHT=2
 LOGGER = loguru.logger
-
-FRAUD_SCORE_THRESHOLD = 70
+FRAUD__THRESHOLD = 65
+QUANTITY_WEIGHT=4
+ANOMALY_WEIGHT=7
 
 INTERNAL_IPS = [
     '127.0.0.1',

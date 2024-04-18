@@ -78,6 +78,42 @@
             </div>
           </div>
         </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>TF</span>
+            </div>
+            <div class="user-info">
+              <span>Transaction Frequency</span>
+            </div>
+            <div class="user-action">
+              {% if assessment.fraud_score_threshold_status %}<em
+                class="icon ni ni-check-circle-cut bg-outline-success"
+              ></em
+              >{% else %}
+              <em class="icon ni ni-cross-circle bg-outline-danger"></em>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>AT</span>
+            </div>
+            <div class="user-info">
+              <span>Anomalous Transaction Amounts</span>
+            </div>
+            <div class="user-action">
+              {% if assessment.fraud_score_threshold_status %}<em
+                class="icon ni ni-check-circle-cut bg-outline-success"
+              ></em
+              >{% else %}
+              <em class="icon ni ni-cross-circle bg-outline-danger"></em>
+              {% endif %}
+            </div>
+          </div>
+        </div>
       </div>
     </div>
 
