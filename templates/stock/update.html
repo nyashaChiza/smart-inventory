@@ -21,6 +21,48 @@
 {% endblock %}
 
 {% block content %}
+<div class="card-inner border border-light rounded my-3">
+    <div class="card-head">
+        <h5 class="card-title">{{ stock }} Stock</h5>
+    </div>
+    <form method="Post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-md-12 py-1">
+                <label class="form-label" for="cf-full-name">Name</label>
+                <input type="text" name="name" value="{{ stock.name }}" class="form-control" id="cf-full-name">
+            </div>
+        </div>
+        <div class="row py-1">
+            <div class="form-group col-md-6">
+                <label class="form-label" for="cf-phone-no">Unit Price</label>
+                <input type="number" name="price" value="{{ stock.price }}" class="form-control" id="cf-phone-no">
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label" for="cf-phone-no">Category</label>
+                <select class="form-select js-select2 select2-hidden-accessible" name="category" data-search="on" id="5" name="category">
+                    {% for category in form.category.field.queryset %}
+                        {% if category.pk == stock.category.pk %}
+                            <option selected value="{{ category.pk }}">{{ category.name }}</option>
+                        {% else %}
+                            <option selected value="{{ category.pk }}">{{ category.name }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+                
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="form-label" for="cf-default-textarea">Description</label>
+            <div class="form-control-wrap">
+                <textarea name="description" value="{{ stock.description }}" class="form-control form-control-sm" id="cf-default-textarea" placeholder="Write description">{{stock.description}}</textarea>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+        </div>
+    </form>
+</div>
 
 
 {% endblock %}

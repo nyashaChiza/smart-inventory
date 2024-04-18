@@ -29,6 +29,7 @@
                     <tr>
                         <th>Stock</th>
                         <th>Movement Type</th>
+                        <th>User</th>
                         <th>Previous Quantity</th>
                         <th>Movement Quantity</th>
                         <th>Remaining Quantity</th>
@@ -43,6 +44,7 @@
                       
                         <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ movement.status_comment }}"><a href="{% url 'assessment_detail' movement.pk %}">{{ movement.stock }}</a></td>
                         <td>{{ movement.movement_type }}</td>
+                        <td>{{ movement.user }}</td>
                         <td>{{ movement.previous_quantity }}</td>
                         <td>{{ movement.movement_quantity }}</td>
                         <td>{{ movement.current_quantity }}</td>

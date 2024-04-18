@@ -1,6 +1,8 @@
 from django.urls import reverse_lazy
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from inventory.models import Category
+from inventory.forms import CategoryForm
+from django.contrib.messages.views import SuccessMessageMixin 
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 
 class CategoryListView(ListView):
     model = Category
@@ -12,16 +14,18 @@ class CategoryDetailView(DetailView):
     template_name = 'category/detail.html'
     context_object_name = 'category'
 
-class CategoryCreateView(CreateView):
+class CategoryCreateView(SuccessMessageMixin ,CreateView):
     model = Category
     template_name = 'category/create.html'
-    fields = ['name', 'description']
+    form_class = CategoryForm
+    success_message = "Category created successfully"
     success_url = reverse_lazy('category_list')
 
-class CategoryUpdateView(UpdateView):
+class CategoryUpdateView(SuccessMessageMixin ,UpdateView):
     model = Category
     template_name = 'category/update.html'
-    fields = ['name', 'description']
+    form_class = CategoryForm
+    success_message = "Category updated successfully"
     success_url = reverse_lazy('category_list')
 
 class CategoryDeleteView(View):

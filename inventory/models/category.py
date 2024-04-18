@@ -9,3 +9,6 @@ class Category(models.Model):
     
     def __str__(self) -> str:
         return self.name
+    
+    def get_stock_count(self):
+        return self.stocks.count()

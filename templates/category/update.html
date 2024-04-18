@@ -1,0 +1,48 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-light rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">Update Category {{ category }}</h3>
+                <div class="nk-block-des text-soft">
+               
+                </div>
+            </div>
+            <ul class="nk-block-tools g-3">
+                <a href="{% url 'category_list' %}"  class="btn btn-white btn-dim btn-outline-light mx-1">Back</a>
+            </ul>
+        
+</div>
+{% endblock %}
+{% block content %}
+<div class="card-inner border border-light rounded my-3">
+    <div class="card-head">
+        <h5 class="card-title">Update Category Details</h5>
+    </div>
+    <form method="Post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="form-label" for="cf-full-name">Name</label>
+                {{ form.name }}
+            </div>
+        </div>
+        <div class="row py-2">
+            <div class="form-group col-md-12">
+                <label class="form-label" for="cf-email-address">Description</label>
+                {{ form.description }}
+            </div>
+        </div>
+        <div class="form-group py-1">
+            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+
+
+
+{% endblock %}

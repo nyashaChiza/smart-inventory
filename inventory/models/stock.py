@@ -5,7 +5,7 @@ class Stock(models.Model):
     description = models.TextField(blank=True, null=True)
     quantity = models.IntegerField(default = 0)
     price = models.IntegerField(default = 0)
-    category = models.ForeignKey('inventory.Category', null=True, blank=True, on_delete=models.SET_NULL, related_name='category')
+    category = models.ForeignKey('inventory.Category', null=True, blank=True, on_delete=models.SET_NULL, related_name='stocks')
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     

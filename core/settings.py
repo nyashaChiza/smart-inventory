@@ -14,7 +14,7 @@ SECRET_KEY = 'django-insecure-6*qyx5x6o!f5&l#m9(qk(u4#n!k6t3^d@)xavi01y-lz^#_c-e
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = config('DEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['*','.ngrok-free.app', 'af70-169-150-218-8.ngrok-free.app']
 
 
 # Application definition
@@ -28,6 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #apps
+    # 'accounts.apps.AccountsConfig',
     'integration.apps.IntegrationConfig',
     'inventory.apps.InventoryConfig',
     
@@ -172,6 +173,7 @@ STATUS_CHOICES = (('Success', 'Success'), ('Failed', 'Failed'),('Pending', 'Pend
 LOGGER = loguru.logger
 
 FRAUD_SCORE_THRESHOLD = 70
+
 INTERNAL_IPS = [
     '127.0.0.1',
 ]

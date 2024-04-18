@@ -1,10 +1,12 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 class StockMovement(models.Model):
     MOVEMENT_TYPES = (('ADD','ADD'),('SALE','SALE'),('BREAKAGE','BREAKAGE'))
     MOVEMENT_STATUSES = (('Pending','Pending'),('Approved','Approved'),('Flagged','Flagged'))
     
     name = models.CharField(blank=True, null=True, max_length=255)
+    user = models.ForeignKey(User, blank=True, null=True, on_delete=models.SET_NULL, related_name='mover')
     description = models.TextField(blank=True, null=True)
     movement_quantity = models.IntegerField(default = 0)
     previous_quantity = models.IntegerField(default = 0)

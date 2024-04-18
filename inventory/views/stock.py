@@ -5,6 +5,7 @@ from django.contrib import messages
 from django.urls import reverse_lazy
 from inventory.forms import StockMovementForm
 from inventory.models.stock_movements import StockMovement
+from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 
 
@@ -37,6 +38,7 @@ def add_stock_movements(request, pk, **kwargs):
             StockMovement.objects.create(
                 name='Direct Inventory',
                 stock=stock,
+                user = request.user,
                 current_quantity= stock.quantity,
                 price=price,
                 movement_type=movement_type,
@@ -61,24 +63,23 @@ class StockListView(ListView):
         return context
     
 
-    
-    
-
 class StockDetailView(DetailView):
     model = Stock
     template_name = 'stock/detail.html'
     context_object_name = 'stock'
 
-class StockCreateView(CreateView):
+class StockCreateView(SuccessMessageMixin ,CreateView):
     model = Stock
     template_name = 'stock/create.html'
     fields = ['name', 'description', 'quantity', 'price', 'category']
+    success_message = "Stock created successfully"
     success_url = reverse_lazy('stock_list')
 
-class StockUpdateView(UpdateView):
+class StockUpdateView(SuccessMessageMixin ,UpdateView):
     model = Stock
     template_name = 'stock/update.html'
     fields = ['name', 'description', 'quantity', 'price', 'category']
+    success_message = "Stock updated successfully"
     success_url = reverse_lazy('stock_list')
 
 class StockDeleteView(View):
