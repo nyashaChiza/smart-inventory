@@ -41,7 +41,7 @@
               <span>Fraud Status</span>
             </div>
             <div class="user-action">
-              {% if assessment.status %}<em class="icon ni ni-check-circle-cut bg-outline-success"></em>{% else %}
+              {% if assessment.fraud_status %}<em class="icon ni ni-check-circle-cut bg-outline-success"></em>{% else %}
               <em class="icon ni ni-cross-circle bg-outline-danger"></em>
               {% endif %}
             </div>
@@ -54,7 +54,7 @@
             </div>
             <div class="user-info">Quantity Within Movement Limits</div>
             <div class="user-action">
-              {% if assessment.within_limits %}<em class="icon ni ni-check-circle-cut bg-outline-success" ></em >{% else %}
+              {% if assessment.quantity_within_movement_limits %}<em class="icon ni ni-check-circle-cut bg-outline-success" ></em >{% else %}
               <em class="icon ni ni-cross-circle bg-outline-danger"></em>
               {% endif %}
             </div>
@@ -69,7 +69,7 @@
               <span>Fraud Score Below Limit</span>
             </div>
             <div class="user-action">
-              {% if assessment.fraud_score_threshold_status %}<em
+              {% if assessment.fraud_score_below_limit %}<em
                 class="icon ni ni-check-circle-cut bg-outline-success"
               ></em
               >{% else %}
@@ -87,7 +87,7 @@
               <span>Transaction Frequency</span>
             </div>
             <div class="user-action">
-              {% if assessment.fraud_score_threshold_status %}<em
+              {% if assessment.transaction_frequency %}<em
                 class="icon ni ni-check-circle-cut bg-outline-success"
               ></em
               >{% else %}
@@ -105,12 +105,27 @@
               <span>Anomalous Transaction Amounts</span>
             </div>
             <div class="user-action">
-              {% if assessment.fraud_score_threshold_status %}<em
+              {% if assessment.anomalous_transaction_amounts %}<em
                 class="icon ni ni-check-circle-cut bg-outline-success"
               ></em
               >{% else %}
               <em class="icon ni ni-cross-circle bg-outline-danger"></em>
               {% endif %}
+            </div>
+          </div>
+          
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>FS</span>
+            </div>
+            <div class="user-info">
+              <span>Fraud Score</span>
+            </div>
+            <div class="user-action">
+              {{assessment.fraud_score|floatformat:2 }}%
+              
             </div>
           </div>
         </div>
