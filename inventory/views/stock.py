@@ -1,9 +1,10 @@
-from django.shortcuts import get_object_or_404, redirect
-from django.conf import settings
 from inventory.models import Stock
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.http import HttpResponseRedirect
 from inventory.forms import StockMovementForm
+from django.views.generic.edit import UpdateView
+from django.shortcuts import get_object_or_404, redirect
 from inventory.models.stock_movements import StockMovement
 from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
@@ -75,12 +76,29 @@ class StockCreateView(SuccessMessageMixin ,CreateView):
     success_message = "Stock created successfully"
     success_url = reverse_lazy('stock_list')
 
-class StockUpdateView(SuccessMessageMixin ,UpdateView):
+
+class StockUpdateView(SuccessMessageMixin, UpdateView):
     model = Stock
     template_name = 'stock/update.html'
     fields = ['name', 'description', 'quantity', 'price', 'category']
     success_message = "Stock updated successfully"
     success_url = reverse_lazy('stock_list')
+
+    def form_valid(self, form):
+        # Save the form with proper error handling
+        try:
+            self.object = form.save()
+            return super().form_valid(form)
+        except Exception as e:
+            messages.warning(self.request, f"An error occurred: {str(e)}:{form.error}")
+            return HttpResponseRedirect(self.get_success_url())
+
+    def form_invalid(self, form):
+        # Display form errors to the user
+        messages.warning(self.request, f"Form submission failed. Please correct the errors. {form.errors}")
+        return super().form_invalid(form)
+
+
 
 class StockDeleteView(View):
     model = Stock

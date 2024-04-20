@@ -25,12 +25,16 @@
     <div class="card-head">
         <h5 class="card-title">{{ stock }} Stock</h5>
     </div>
-    <form method="Post">
+    <form method="Post" action='{% url "stock_update" stock.pk %}'>
         {% csrf_token %}
         <div class="row">
-            <div class="form-group col-md-12 py-1">
+            <div class="form-group col-md-6 py-1">
                 <label class="form-label" for="cf-full-name">Name</label>
                 <input type="text" name="name" value="{{ stock.name }}" class="form-control" id="cf-full-name">
+            </div>
+            <div class="form-group col-md-6 py-1">
+                <label class="form-label" for="cf-full-name">Quantity</label>
+                <input type="text" name="quantity" value="{{ stock.quantity }}" class="form-control" id="cf-full-name">
             </div>
         </div>
         <div class="row py-1">

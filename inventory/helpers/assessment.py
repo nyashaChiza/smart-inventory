@@ -5,6 +5,12 @@ from inventory.models import StockMovement
 
 def get_movement_assessment(movement_entry: StockMovement):
     # Initialize dictionary to store results
+    users_groups = movement_entry.user.groups.all()
+    user_permissions = []
+    
+    for group in users_groups:
+        for perm in group.permissions.all():     
+            user_permissions.append(perm.name)
     result = {
         'fraud_status': None,
         'quantity_within_movement_limits': None,
@@ -12,7 +18,8 @@ def get_movement_assessment(movement_entry: StockMovement):
         'transaction_frequency': None,
         'anomalous_transaction_amounts': None,
         'pass_fail': None,
-        'fraud_score': None  # New field for fraud score
+        'fraud_score': None,
+        'transaction_authorised': 'Can add stock movement' in user_permissions ,
     }
     
     # Perform analysis based on movement entry
@@ -66,8 +73,10 @@ def get_movement_assessment(movement_entry: StockMovement):
         passed_weight += settings.ANOMALY_WEIGHT
     
     fraud_score_percentage = (passed_weight / total_weight) * 100
-    result['fraud_score'] =  abs(100 - fraud_score_percentage) * (anomaly_threshold/100)
+    result['fraud_score'] =  abs(100 - fraud_score_percentage) 
     result['fraud_status'] = result['fraud_score']< settings.FRAUD__THRESHOLD
     result['fraud_score_below_limit']  = result['fraud_score']< settings.FRAUD__THRESHOLD
-    
+   
     return result
+
+
