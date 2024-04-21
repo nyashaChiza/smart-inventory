@@ -31,11 +31,13 @@ INSTALLED_APPS = [
     # 'accounts.apps.AccountsConfig',
     'integration.apps.IntegrationConfig',
     'inventory.apps.InventoryConfig',
+    'invoice.apps.InvoiceConfig',
     
     #3rd part apps
     "crispy_forms",
     "crispy_bootstrap5", 
     "debug_toolbar",
+    
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
