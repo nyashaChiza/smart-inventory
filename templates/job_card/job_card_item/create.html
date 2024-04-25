@@ -1,0 +1,46 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-light rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">Add Items For {{ job_card }}</h3>
+                <div class="nk-block-des text-soft">
+               
+                </div>
+            </div>
+            <ul class="nk-block-tools g-3">
+                <a href="{% url 'invoice_list' %}"  class="btn btn-white btn-dim btn-outline-light mx-1">Back</a>
+            </ul>
+        
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="card-inner border border-light rounded my-3">
+    <form method="Post">
+        {% csrf_token %}
+        <div class="row">
+            <div class="form-group col-md-6">
+                <label class="form-label" for="cf-full-name">Select Stock</label>
+               {{ form.product }}
+            </div>
+            <div class="form-group col-md-6">
+                <label class="form-label" for="cf-email-address">Quantity</label>
+                <input type="text" name="{{ form.quantity.name }}" class="form-control" id="cf">
+                <input type="hidden" name="{{ form.invoice.name }}" value='{{ invoice.pk }}' class="form-control" id="cf-full-name">
+
+            </div>
+        </div>
+        
+        
+        <div class="form-group my-2">
+            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

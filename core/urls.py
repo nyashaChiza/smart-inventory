@@ -11,6 +11,7 @@ urlpatterns = [
     path('', include('accounts.urls')),
     path('inventory/', include('inventory.urls')),
     path('invoice/', include('invoice.urls')),
+    path('job-card/', include('job_card.urls')),
     path('integration/', include('integration.urls')),
 ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 

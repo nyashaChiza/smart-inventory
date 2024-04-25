@@ -32,6 +32,7 @@ INSTALLED_APPS = [
     'integration.apps.IntegrationConfig',
     'inventory.apps.InventoryConfig',
     'invoice.apps.InvoiceConfig',
+    'job_card.apps.JobCardConfig',
     
     #3rd part apps
     "crispy_forms",
