@@ -1,0 +1,6 @@
+[
+  {
+    "type": "sqlite",
+    "path": "c:\\projects\\python\\smart-inventory\\db.sqlite3"
+  }
+]

@@ -1,0 +1,142 @@
+{% extends 'layouts/base.html' %}
+
+{% load static %}
+
+{% block navigation %}
+<div class="nk-content-body">
+    <div class="nk-block-head nk-block-head-sm">
+        <div class="nk-block-between py-3 px-3 bg-light rounded-3">
+            <div class="nk-block-head-content">
+                <h3 class="nk-block-title page-title">Invoice List</h3>
+                <div class="nk-block-des text-soft">
+               
+                </div>
+            </div>
+            <div class="dropdown">
+                <a href="#" class="btn btn-primary" data-bs-toggle="dropdown"><span>Actions</span><em class="icon ni ni-chevron-down"></em></a>
+                <div class="dropdown-menu dropdown-menu-end dropdown-menu-auto mt-1  btn-white btn-dim bg-outline-light mx-1">
+                    <ul class="link-list-plain">
+                        <li><a href="{% url 'create_invoice' %}">Create Invoice</a></li>
+                        
+                    </ul>
+                </div>
+            </div>
+            
+</div>
+{% endblock %}
+
+{% block content %}
+
+<div class="nk-block nk-block-lg my-2">
+    <div class="card card-bordered card-preview">
+        <div class="card-inner">
+            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Customer</th>
+                        <th>No. Of Items</th>
+                        <th>Total Amount</th>
+                        <th>Created</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for invoice in invoices %}
+                    <tr>
+                        <td>{{ invoice }}</td>
+                        <td>{{ invoice.customer_name }}</td>
+                        <td>{{ invoice.invoice_items.count }}</td>
+                        <td>${{ invoice.total_amount|floatformat:2 }}</td>
+                        <td>{{ invoice.created }}</td>
+
+                        <td class="nk-tb-col nk-tb-col-tools">
+                            <ul class="nk-tb-actions gx-1">
+                                <li>
+                                    <div class="drodown">
+                                        <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
+                                        <div class="dropdown-menu dropdown-menu-end">
+                                            <ul class="link-list-opt no-bdr">
+                                                <li><a data-bs-toggle="modal" data-bs-target="#modalinvoiceMovement{{invoice.pk}}" ><em class="icon ni ni-property-add"></em>Add Movement</a></li>
+                                                {% comment %} <li><a href="{% url 'invoice_update' invoice.pk %}"><em class="icon ni ni-text-rich"></em><span>Update</span></a></li>
+                                                <li><a href="{% url 'invoicemovement_list' invoice.pk %}"><em class="icon ni ni-text-rich"></em><span>movements</span></a></li>
+                                                  {% endcomment %}
+                                            </ul>
+                                        </div>
+                                    </div>
+                                </li>
+                            </ul>
+                        </td>
+                    </tr> 
+
+                    <div class="modal fade" id="modalinvoiceMovement{{invoice.pk}}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Add Movement To {{invoice}} -  Remaining Quanity ({{invoice.quantity}})</h5>
+                                    <a href="#" class="close" data- bs-dismiss="modal" aria-label="Close">
+                                        <em class="icon ni ni-cross"></em>
+                                    </a>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{% url 'add_movement' invoice.pk %}" method='post' class="form-validate is-alter">
+                                        {% csrf_token %}
+                                        <div class="form-group">
+                                            <label class="form-label" for="full-name">Movement Type</label>
+                                            <div class="form-control-wrap">
+                                                {{ movement_form.movement_type }}
+                                            </div>
+                                        </div>
+                                       
+                                        <div class="form-group">
+                                            <label class="form-label" for="pay-amount">Quantity</label>
+                                            <div class="form-control-wrap">
+                                                {{ movement_form.movement_quantity }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="pay-amount">Description</label>
+                                            <div class="form-control-wrap">
+                                                <input name='invoice' type='hidden' value='{{ invoice.pk }}'>
+                                                {{ movement_form.description }}
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-footer bg-light">
+                                    <span class="sub-text"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="modal fade" tabindex="-1" id="modalinvoiceAction{{invoice.pk}}">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-body modal-body-lg text-center">
+                                    <div class="nk-modal">
+                                        <em class="nk-modal-icon icon-circle icon-circle-xxl icon ni ni-check-circle-cut ni ni-cross bg-success"></em>
+                                        <h4 class="nk-modal-title">Permanently Re-Submit {{ quotation.quote_number}}!</h4>
+                                          <div class="center">
+                                              <span class='py-2'><a data-bs-dismiss="modal" class="btn btn-light">No</a></span>
+                                              <span class='px-2'><a class="btn btn-success" href="#">Yes</a></span>
+                                        </div>
+                                    </div>
+                                </div><!-- .modal-body -->
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}             
+                    
+                </tbody>
+                   
+            </table>
+        </div>
+    </div><!-- .card-preview -->
+</div> <!-- nk-block -->
+
+
+{% endblock %}
