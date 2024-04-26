@@ -3,7 +3,7 @@ from inventory.models import StockMovement
 from job_card.models import JobCard
 from job_card.form import JobCardForm, JobCardItemForm
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.shortcuts import redirect
 
@@ -15,7 +15,7 @@ def create_job_card(request):
             job_card = form.save()
             
             # Redirect to the create_invoice_item view with the invoice id in the URL
-            return redirect('create_card_item', pk=job_card.pk)
+            return redirect('create_job_card_item', pk=job_card.pk)
     else:
         form = JobCardForm()
     return render(request, 'job_card/create.html', {'form': form})
@@ -26,6 +26,11 @@ class JobCardList(ListView):
     template_name = "job_card/index.html"
     context_object_name = 'cards'
 
+class JobCardDetailView(DetailView):
+    model= JobCard
+    template_name = "job_card/details.html"
+    context_object_name = 'card'
+
 def create_job_card_item(request, pk):
     job_card = JobCard.objects.get(pk=pk)
     
@@ -33,7 +38,7 @@ def create_job_card_item(request, pk):
         form = JobCardItemForm(request.POST)
         
         if form.is_valid():
-            product = form.cleaned_data['product']
+            product = form.cleaned_data['stock']
             previous_quantity = product.quantity
             product.quantity = product.quantity - form.cleaned_data['quantity']
             product.save()
@@ -58,4 +63,4 @@ def create_job_card_item(request, pk):
     else:
         form = JobCardItemForm()
     
-    return render(request, 'job_card/card_item/create.html', {'form': form, 'job_card': job_card})
+    return render(request, 'job_card/job_card_item/create.html', {'form': form, 'job_card': job_card})

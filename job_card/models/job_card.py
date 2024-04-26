@@ -13,4 +13,7 @@ class JobCard(models.Model):
     def __str__(self):
         return self.title
     
+    def total_amount(self):
+        return sum(item.sub_total() for item in self.job_card_items.all())
+    
     

@@ -7,7 +7,7 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between py-3 px-3 bg-light rounded-3">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Invoice List</h3>
+                <h3 class="nk-block-title page-title">Job Card List</h3>
                 <div class="nk-block-des text-soft">
                
                 </div>
@@ -16,7 +16,7 @@
                 <a href="#" class="btn btn-primary" data-bs-toggle="dropdown"><span>Actions</span><em class="icon ni ni-chevron-down"></em></a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-auto mt-1  btn-white btn-dim bg-outline-light mx-1">
                     <ul class="link-list-plain">
-                        <li><a href="{% url 'create_invoice' %}">Create Invoice</a></li>
+                        <li><a href="{% url 'create_job_card' %}">Create Job Card</a></li>
                         
                     </ul>
                 </div>
@@ -34,7 +34,6 @@
                 <thead>
                     <tr>
                         <th>Name</th>
-                        <th>Customer</th>
                         <th>No. Of Items</th>
                         <th>Total Amount</th>
                         <th>Created</th>
@@ -42,13 +41,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for invoice in invoices %}
+                    {% for card in cards %}
                     <tr>
-                        <td>{{ invoice }}</td>
-                        <td>{{ invoice.customer_name }}</td>
-                        <td>{{ invoice.invoice_items.count }}</td>
-                        <td>${{ invoice.total_amount|floatformat:2 }}</td>
-                        <td>{{ invoice.created }}</td>
+                        <td>{{ card }}</td>
+                        <td>{{ card.job_card_items.count }}</td>
+                        <td>${{ card.total_amount|floatformat:2 }}</td>
+                        <td>{{ card.created }}</td>
 
                         <td class="nk-tb-col nk-tb-col-tools">
                             <ul class="nk-tb-actions gx-1">
@@ -57,10 +55,9 @@
                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <ul class="link-list-opt no-bdr">
-                                                <li><a data-bs-toggle="modal" data-bs-target="#modalinvoiceMovement{{invoice.pk}}" ><em class="icon ni ni-property-add"></em>Add Movement</a></li>
-                                                <li><a href="{% url 'invoice_details' invoice.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
-                                                
-                                            </ul>
+                                                <li><a data-bs-toggle="modal" data-bs-target="#modalinvoiceMovement{{card.pk}}" ><em class="icon ni ni-property-add"></em>Add Movement</a></li>
+                                                 <li><a href="{% url 'job_card_details'  card.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
+                                                                                           </ul>
                                         </div>
                                     </div>
                                 </li>
@@ -78,7 +75,7 @@
                                     </a>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{% url 'add_movement' invoice.pk %}" method='post' class="form-validate is-alter">
+                                    <form action="" method='post' class="form-validate is-alter">
                                         {% csrf_token %}
                                         <div class="form-group">
                                             <label class="form-label" for="full-name">Movement Type</label>

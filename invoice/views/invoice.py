@@ -4,7 +4,7 @@ from invoice.forms import InvoiceForm
 from invoice.models import Invoice
 from invoice.forms import InvoiceItemForm
 from django.shortcuts import render, redirect
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from django.contrib import messages
 from django.shortcuts import redirect
 
@@ -26,6 +26,11 @@ class InvoiceList(ListView):
     model= Invoice
     template_name = "invoice/index.html"
     context_object_name = 'invoices'
+    
+class InvoiceDetailView(DetailView):
+    model= Invoice
+    template_name = "invoice/details.html"
+    context_object_name = 'invoice'
 
 def create_invoice_item(request, pk):
     invoice = Invoice.objects.get(pk=pk)

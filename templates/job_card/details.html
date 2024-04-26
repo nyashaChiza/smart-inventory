@@ -7,25 +7,19 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between py-3 px-3 bg-light rounded-3">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Invoice Details</h3>
+                <h3 class="nk-block-title page-title">Job Card Details</h3>
                 <div class="nk-block-des text-soft">
-                    {{ invoice }}
+                    {{ card }}
                 </div>
                 <div class="nk-block-des text-soft">
-                    Customer - {{ invoice.customer }}
-                </div>
-                <div class="nk-block-des text-soft">
-                    Description - {{ invoice.description }}
-                </div>
-                <div class="nk-block-des text-soft">
-                   Customer Contact - {{ invoice.customer_contact }}
+                    {{ card.description }}
                 </div>
             </div>
             <div class="dropdown">
                 <a href="#" class="btn btn-primary" data-bs-toggle="dropdown"><span>Actions</span><em class="icon ni ni-chevron-down"></em></a>
                 <div class="dropdown-menu dropdown-menu-end dropdown-menu-auto mt-1  btn-white btn-dim bg-outline-light mx-1">
                     <ul class="link-list-plain">
-                        <li><a href="{% url 'invoice_list' %}">Back</a></li>
+                        <li><a href="{% url 'job_card_list' %}">Back</a></li>
                         
                     </ul>
                 </div>
@@ -38,7 +32,7 @@
 
 <div class="nk-block nk-block-lg my-2">
     <div class="card card-bordered card-preview">
-        <div class="card card-header">Invoice Items </div>
+        <div class="card card-header">Job Card Items </div>
         <div class="card-inner">
             <table class="datatable-init-export nowrap table" data-export-title="Export">
                 <thead>
@@ -51,11 +45,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    {% for item in invoice.invoice_items.all %}
+                    {% for item in card.job_card_items.all %}
                     <tr>
                         <td>{{ item }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td>${{ item.unit_price|floatformat:2 }}</td>
+                        <td>${{ item.price|floatformat:2 }}</td>
                         <td>{{ item.created }}</td>
                     </tr> 
 
@@ -67,8 +61,8 @@
                         <td>Total</td>
                         <td></td>
                         <td>{{ item.created }}</td>
-                        <td>${{ invoice.total_amount|floatformat:2 }}</td>
-                    </tr>        
+                        <td>${{ job_card.total_amount|floatformat:2 }}</td>
+                    </tr>             
                     
                 </tbody>
                    

@@ -9,8 +9,9 @@ class InvoiceItem(models.Model):
     updated = models.DateTimeField(auto_now=True, blank=True, null=True)
 
     
-    
-    
+    def __str__(self):
+        return f"{self.product}"
+
     def sub_total(self):
         return self.quantity * self.unit_price
     
