@@ -43,7 +43,7 @@ def create_job_card_item(request, pk):
             if product.quantity > form.cleaned_data['quantity']:
                 product.quantity = product.quantity - form.cleaned_data['quantity']
                 product.save()
-                
+               
                 form.instance.unit_price = product.price 
                 form.instance.job_card = job_card
                 form.save()
