@@ -40,26 +40,29 @@ def create_job_card_item(request, pk):
         if form.is_valid():
             product = form.cleaned_data['stock']
             previous_quantity = product.quantity
-            product.quantity = product.quantity - form.cleaned_data['quantity']
-            product.save()
-             
-            form.instance.unit_price = product.price 
-            form.instance.job_card = job_card
-            form.save()
-            
-            messages.success(request, 'Job Card created successfullly')
-            StockMovement.objects.create(
-                name='Job Card Sale',
-                stock=product,
-                user = request.user,
-                current_quantity= product.quantity,
-                price=product.price,
-                movement_type='SALE',
-                movement_quantity=form.cleaned_data['quantity'],
-                previous_quantity= previous_quantity ,
-                description=''
-            )
-            return redirect('job_card_list')  
+            if product.quantity > form.cleaned_data['quantity']:
+                product.quantity = product.quantity - form.cleaned_data['quantity']
+                product.save()
+                
+                form.instance.unit_price = product.price 
+                form.instance.job_card = job_card
+                form.save()
+                
+                messages.success(request, 'Job Card created successfully')
+                StockMovement.objects.create(
+                    name='Job Card Sale',
+                    stock=product,
+                    user = request.user,
+                    current_quantity= product.quantity,
+                    price=product.price,
+                    movement_type='SALE',
+                    movement_quantity=form.cleaned_data['quantity'],
+                    previous_quantity= previous_quantity ,
+                    description=''
+                )
+            else:
+                messages.warning(request, f'Not Enough Stock In Inventory For {product}')
+            return redirect(request.path)  
     else:
         form = JobCardItemForm()
     

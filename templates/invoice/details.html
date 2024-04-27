@@ -9,10 +9,10 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">Invoice Details</h3>
                 <div class="nk-block-des text-soft">
-                    {{ invoice }}
+                    Invoice - {{ invoice }}
                 </div>
                 <div class="nk-block-des text-soft">
-                    Customer - {{ invoice.customer }}
+                    Customer - {{ invoice.customer_name }}
                 </div>
                 <div class="nk-block-des text-soft">
                     Description - {{ invoice.description }}
@@ -63,8 +63,8 @@
 
                     
                     {% endfor %}
-                    <tr>
-                        <td>Total</td>
+                    <tr class='bg-lighter'>
+                        <td class='font-weight-bold text-success'>Total</td>
                         <td></td>
                         <td>{{ item.created }}</td>
                         <td>${{ invoice.total_amount|floatformat:2 }}</td>

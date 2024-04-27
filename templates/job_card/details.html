@@ -9,10 +9,10 @@
             <div class="nk-block-head-content">
                 <h3 class="nk-block-title page-title">Job Card Details</h3>
                 <div class="nk-block-des text-soft">
-                    {{ card }}
+                    name - {{ card }}
                 </div>
                 <div class="nk-block-des text-soft">
-                    {{ card.description }}
+                    description - {{ card.description }}
                 </div>
             </div>
             <div class="dropdown">
@@ -49,7 +49,7 @@
                     <tr>
                         <td>{{ item }}</td>
                         <td>{{ item.quantity }}</td>
-                        <td>${{ item.price|floatformat:2 }}</td>
+                        <td>${{ item.unit_price|floatformat:2 }}</td>
                         <td>{{ item.created }}</td>
                     </tr> 
 
@@ -60,8 +60,8 @@
                     <tr>
                         <td>Total</td>
                         <td></td>
-                        <td>{{ item.created }}</td>
-                        <td>${{ job_card.total_amount|floatformat:2 }}</td>
+                        <td></td>
+                        <td>${{ card.total_amount|floatformat:2 }}</td>
                     </tr>             
                     
                 </tbody>

@@ -1,3 +1,4 @@
+{% load custom_filters %}
 {% load static %}
 
 <div class="nk-sidebar nk-sidebar-fixed" data-content="sidebarMenu">
@@ -30,7 +31,7 @@
                 <span class="nk-menu-text">Home</span>
               </a>
             </li>
-            
+            {%  if request.user|has_role:"Inventory" or request.user|has_role:"Admin" %}
             <li class="nk-menu-item">
               <a href="{% url 'stock_list' %}" class="nk-menu-link">
                 <span class="nk-menu-icon">
@@ -39,6 +40,9 @@
                 <span class="nk-menu-text">Stock</span>
               </a>
             </li>
+
+            {% endif %}
+            {% if request.user|has_role:"Job Card" or request.user|has_role:"Admin"  %}
             <li class="nk-menu-item">
               <a href="{% url 'job_card_list' %}" class="nk-menu-link">
                 <span class="nk-menu-icon">
@@ -47,6 +51,8 @@
                 <span class="nk-menu-text">Job Cards</span>
               </a>
             </li>
+            {% endif %}
+            {% if request.user|has_role:"Sales" or request.user|has_role:"Admin"  %}
             <li class="nk-menu-item">
               <a href="{% url 'invoice_list' %}" class="nk-menu-link">
                 <span class="nk-menu-icon">
@@ -55,7 +61,8 @@
                 <span class="nk-menu-text">Invoices</span>
               </a>
             </li>
-          
+            {% endif %}
+            {% if request.user|has_role:"Admin"  %}
             <li class="nk-menu-item">
               <a href="{% url 'assessment_list' %}" class="nk-menu-link">
                 <span class="nk-menu-icon">
@@ -64,7 +71,8 @@
                 <span class="nk-menu-text">Assessment</span>
               </a>
             </li>
-            <li class="nk-menu-item">
+           
+             <li class="nk-menu-item">
               <a href="{% url 'users-index' %}" class="nk-menu-link">
                 <span class="nk-menu-icon">
                   <em class="icon ni ni-user-list"></em>
@@ -72,7 +80,7 @@
                 <span class="nk-menu-text">Users</span>
               </a>
             </li>
-            
+            {% endif %}
           </ul>
           <!-- .nk-menu -->
         </div>

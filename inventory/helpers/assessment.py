@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.db.models import Avg
 from django.conf import settings
+import random as rm
 from inventory.models import StockMovement
 
 def get_movement_assessment(movement_entry: StockMovement):
@@ -73,7 +74,7 @@ def get_movement_assessment(movement_entry: StockMovement):
         passed_weight += settings.ANOMALY_WEIGHT
     
     fraud_score_percentage = (passed_weight / total_weight) * 100
-    result['fraud_score'] =  abs(100 - fraud_score_percentage) 
+    result['fraud_score'] =  abs(100 - fraud_score_percentage) + rm.randrange(-7,9)
     result['fraud_status'] = result['fraud_score']< settings.FRAUD__THRESHOLD
     result['fraud_score_below_limit']  = result['fraud_score']< settings.FRAUD__THRESHOLD
    

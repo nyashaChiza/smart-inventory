@@ -20,6 +20,7 @@
 {% endblock %}
 
 {% block content %}
+
 <div class="card-inner border border-light rounded my-3">
     <form method="Post">
         {% csrf_token %}
@@ -38,9 +39,53 @@
         
         
         <div class="form-group my-2">
-            <button type="submit" class="btn btn-lg btn-primary">Save</button>
+            <button type="submit" class="btn btn-lg btn-primary">Add To Invoice</button>
         </div>
     </form>
 </div>
 
+<div class="nk-block nk-block-lg my-2">
+    <div class="card card-bordered card-preview">
+        <div class="card card-header">Invoice Items </div>
+        <div class="card-inner">
+            <table class="datatable-init-export nowrap table" data-export-title="Export">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Created</th>
+                       
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in invoice.invoice_items.all %}
+                    <tr>
+                        <td>{{ item }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>${{ item.unit_price|floatformat:2 }}</td>
+                        <td>{{ item.created }}</td>
+                    </tr> 
+
+                    
+
+                    
+                    {% endfor %}
+                    <tr class='bg-lighter'>
+                        <td class='font-weight-bold text-success'>Total</td>
+                        <td></td>
+                        <td>{{ item.created }}</td>
+                        <td>${{ invoice.total_amount|floatformat:2 }}</td>
+                    </tr>        
+                    
+                </tbody>
+                   
+            </table>
+        </div>
+        <div class="form-group my-2 mx-2">
+            <a href="{% url 'invoice_list' %}" class="btn btn-lg btn-light">Save Invoice</a>
+        </div>
+    </div><!-- .card-preview -->
+
+</div>
 {% endblock %}

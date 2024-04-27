@@ -10,7 +10,7 @@ class Stock(models.Model):
     updated = models.DateTimeField(auto_now=True)
     
     def __str__(self) -> str:
-        return self.name
+        return f"{self.name} ({self.quantity})"
     
     def total_sales(self):
         return sum([move.total_cost() for move in self.movements.filter(movement_type='SALE').all()])

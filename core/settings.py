@@ -28,7 +28,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     #apps
-    # 'accounts.apps.AccountsConfig',
+    'accounts.apps.AccountsConfig',
     'integration.apps.IntegrationConfig',
     'inventory.apps.InventoryConfig',
     'invoice.apps.InvoiceConfig',
@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     "crispy_forms",
     "crispy_bootstrap5", 
     "debug_toolbar",
-    
 ]
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
