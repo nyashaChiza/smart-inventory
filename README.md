@@ -12,7 +12,7 @@ This document provides instructions for setting up and running the project local
 1. Open a terminal or command prompt.
 2. Navigate to the directory where you want to clone the project.
 3. Run the following command:
-git clone [<repository_url>](https://github.com/nyashaChiza/smart-inventory.git)
+git clone [smart-nventory](https://github.com/nyashaChiza/smart-inventory.git)
 
 ## Setup Virtual Environment
 
@@ -58,6 +58,5 @@ start-project.bat
 ## Additional Notes
 
 - If you encounter any issues or errors during setup or execution, refer to the project's documentation or seek assistance from the project maintainers.
-- Remember to deactivate the virtual environment when you're done:
 
 
