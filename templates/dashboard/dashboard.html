@@ -1,5 +1,4 @@
 {% extends 'layouts/base.html' %}
-
 {% load static %}
 
 {% block navigation %}
@@ -7,21 +6,177 @@
     <div class="nk-block-head nk-block-head-sm">
         <div class="nk-block-between py-3 px-3 bg-light rounded-3">
             <div class="nk-block-head-content">
-                <h3 class="nk-block-title page-title">Dashboard</h3>
+                <h3 class="nk-block-title page-title">Smart Inventory Dashboard</h3>
                 <div class="nk-block-des text-soft">
                
                 </div>
             </div><!-- .nk-block-head-content -->
-            <ul class="nk-block-tools g-3">
-                <form>
-                    <input type="month" id="year" name="year" class="form-control form-control-outlined" value="{% if request.GET.year %}{{ request.GET.year }}{% else %}{{ current_year }}{% endif %}">
-                    <input type="submit" value="Filter" class="btn btn-white btn-dim btn-outline-light mx-1">
-                </form>
-                <!-- .nk-block-head -->
+              
+        </div>      
+    </div>        <!-- .nk-block-head -->
 </div>
 {% endblock %}
 
 {% block content %}
 
+
+<div class="nk-content nk-content-fluid">
+    <div class="container-xl wide-lg">
+        <div class="nk-content-body">
+            <div class="nk-block">
+                <div class="card card-bordered">
+                    <div class="card-aside-wrap">
+                        <div class="card-content">
+                            <div class="card-inner ">
+                                <div class="nk-block">
+                                    
+
+                                    <div class="col-md-12">
+                                        <div class="card card-bordered card-preview my-3">
+                                            <div class="card-inner">
+                                                <div class="card-head">
+                                                    <h6 class="title"> Total Invoice Sales</h6>
+                                                </div>
+                                                <div class="nk-ck">
+                                                    <div class="chartjs-size-monitor">
+                                                        <div class="chartjs-size-monitor-expand"></div>
+                                                        <div class="chartjs-size-monitor-shrink"></div>
+                                                    </div>
+                                                    <canvas class="line-chart chartjs-render-monitor" id="SalesChart" width="716" height="200"
+                                                        style="display: block; height: 260px; width: 785px;"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div> 
+                                    <div class="col-md-12">
+                                        <div class="card card-bordered card-preview my-3">
+                                            <div class="card-inner">
+                                                <div class="card-head">
+                                                    <h6 class="title">{{ current_year }} Total WorkShop Movements</h6>
+                                                </div>
+                                                <div class="nk-ck">
+                                                    <div class="chartjs-size-monitor">
+                                                        <div class="chartjs-size-monitor-expand"></div>
+                                                        <div class="chartjs-size-monitor-shrink"></div>
+                                                    </div>
+                                                    <canvas class="line-chart chartjs-render-monitor" id="WorkshopChart" width="716" height="200"
+                                                        style="display: block; height: 260px; width: 785px;"></canvas>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>         
+                            </div><!-- .card-aside-wrap -->
+                        </div><!-- .card -->
+                    </div><!-- .nk-block -->
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="{% static 'assets/js/scripts.js?ver=3.1.1' %}"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<script>
+    var salesData = {{ sales_data|safe }};
+    var workshopData = {{ workshop_data|safe }};
+    var movementData = {{ movement_data|safe }};
+    var statusData = {{ status_data|safe }};
+
+    // Ensure data has values for all months (fill in zeros for missing months)
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    
+    // Create datasets for each category
+    var invoiceValues = months.map(function (month) {
+        return salesData[month] || 0;
+    });
+
+    var workshopValues = months.map(function (month) {
+        return workshopData[month] || 0;
+    });
+
+    var movementtypeValues = months.map(function (month) {
+        return workshopData[month] || 0;
+    });
+
+    // Create dataset objects
+    var invoiceDataSet = {
+        label: "Invoice Sales",
+        data: invoiceValues,
+        borderColor: '#6baafe', 
+        backgroundColor: '#3342FF', 
+        borderWidth: 1
+    };
+
+    var workshopDataSet = {
+        label: "Workshop Usage",
+        data: workshopValues,
+        borderColor: '#6baafe', 
+        backgroundColor: '#3342FF', 
+        borderWidth: 1
+    };
+
+    // Get Canvas Element for Sales Chart
+    var salesChartCanvas = document.getElementById('SalesChart').getContext('2d');
+    var workshopChartCanvas = document.getElementById('WorkshopChart').getContext('2d');
+
+    // Create Sales Chart with one dataset
+    var salesChart = new Chart(salesChartCanvas, {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [invoiceDataSet]  // Wrap the dataset in an array
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }],
+                xAxes: [{
+                    display: true
+                }]
+            },
+            elements: {
+                line: {
+                    tension: 0.4, // Adjust the tension for the desired saggy effect
+                }
+            }
+        }
+    });
+
+    var workshopChart = new Chart(workshopChartCanvas, {
+        type: 'line',
+        data: {
+            labels: months,
+            datasets: [workshopDataSet]  // Wrap the dataset in an array
+        },
+        options: {
+            responsive: true,
+            scales: {
+                yAxes: [{
+                    ticks: {
+                        beginAtZero: true,
+                    }
+                }],
+                xAxes: [{
+                    display: true
+                }]
+            },
+            elements: {
+                line: {
+                    tension: 0.4, // Adjust the tension for the desired saggy effect
+                }
+            }
+        }
+    });
+</script>
 
 {% endblock %}
