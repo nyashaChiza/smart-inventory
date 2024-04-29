@@ -65,16 +65,13 @@
                         <td>${{ item.unit_price|floatformat:2 }}</td>
                         <td>{{ item.created }}</td>
                     </tr> 
-
-                    
-
                     
                     {% endfor %}
                     <tr>
                         <td>Total</td>
                         <td></td>
                         <td></td>
-                        <td>${{ card.total_amount|floatformat:2 }}</td>
+                        <td>${{ job_card.total_amount|floatformat:2 }}</td>
                     </tr>             
                     
                 </tbody>
