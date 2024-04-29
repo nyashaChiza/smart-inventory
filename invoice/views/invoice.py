@@ -54,6 +54,7 @@ def create_invoice_item(request, pk):
                 StockMovement.objects.create(
                     name='Invoice Sale',
                     stock=product,
+                    identifier = invoice.pk,
                     user = request.user,
                     current_quantity= product.quantity,
                     price=product.price,
