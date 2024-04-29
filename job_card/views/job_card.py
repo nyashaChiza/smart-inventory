@@ -53,9 +53,10 @@ def create_job_card_item(request, pk):
                     name='Job Card Sale',
                     stock=product,
                     user = request.user,
+                    identifier = job_card.pk,
                     current_quantity= product.quantity,
                     price=product.price,
-                    movement_type='SALE',
+                    movement_type='USAGE',
                     movement_quantity=form.cleaned_data['quantity'],
                     previous_quantity= previous_quantity ,
                     description=''

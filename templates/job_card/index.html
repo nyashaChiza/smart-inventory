@@ -1,5 +1,5 @@
 {% extends 'layouts/base.html' %}
-
+{% load custom_filters %}
 {% load static %}
 
 {% block navigation %}
@@ -55,9 +55,9 @@
                                         <a href="#" class="dropdown-toggle btn btn-icon btn-trigger" data-bs-toggle="dropdown"><em class="icon ni ni-more-h"></em></a>
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <ul class="link-list-opt no-bdr">
-                                                <li><a data-bs-toggle="modal" data-bs-target="#modalinvoiceMovement{{card.pk}}" ><em class="icon ni ni-property-add"></em>Add Movement</a></li>
-                                                 <li><a href="{% url 'job_card_details'  card.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
-                                                                                           </ul>
+                                                <li><a href="{% url 'job_card_details'  card.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
+                                                {% if request.user|has_role:"Admin" %}<li><a href="{% url 'job_card_details'  card.pk %}"><em class="icon ni ni-text-rich"></em><span>Generate Fraud Report</span></a></li>{% endif %}
+                                            </ul>
                                         </div>
                                     </div>
                                 </li>
