@@ -31,10 +31,15 @@
             
         </div>
         <div class="row">
-            
             <div class="form-group col-md-12">
                 <label class="form-label" for="cf-email-address">Description</label>
                 <input type="text" name="{{ form.description.name }}" class="form-control" id="cf">
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-12">
+                <label class="form-label" for="cf-email-address">Job card Type</label>
+                {{ form.card_type }}
             </div>
         </div>
         

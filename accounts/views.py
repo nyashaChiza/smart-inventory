@@ -16,11 +16,13 @@ from django.urls import reverse_lazy
 from django.views.generic import FormView
 from django.shortcuts import redirect
 from django.contrib.auth.hashers import make_password
-
+from django.contrib.auth.models import Group
 from django.urls import reverse
 from django.views.generic.edit import UpdateView
 from .forms import LoginForm
 
+from django.shortcuts import render, get_object_or_404, redirect
+from .forms import GroupForm
 
 class LoginUserView(FormView):
     template_name = "registration/login.html"
@@ -131,3 +133,40 @@ def logout_view(request):
     logout(request)
     messages.success(request, "You have been logged out.")
     return redirect("login")
+
+
+def group_list(request):
+    groups = Group.objects.all()
+    return render(request, 'group/index.html', {'groups': groups})
+
+def group_detail(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    return render(request, 'group/detail.html', {'group': group})
+
+def group_create(request):
+    if request.method == 'POST':
+        form = GroupForm(request.POST)
+        if form.is_valid():
+            group = form.save()
+            return redirect('group/detail', pk=group.pk)
+    else:
+        form = GroupForm()
+    return render(request, 'group/create.html', {'form': form})
+
+def group_update(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    if request.method == 'POST':
+        form = GroupForm(request.POST, instance=group)
+        if form.is_valid():
+            form.save()
+            return redirect('group/index.html', pk=group.pk)
+    else:
+        form = GroupForm(instance=group)
+    return render(request, 'group/update.html', {'form': form})
+
+def group_delete(request, pk):
+    group = get_object_or_404(Group, pk=pk)
+    if request.method == 'POST':
+        group.delete()
+        return redirect('group/index')
+    return render(request, 'group_confirm_delete.html', {'group': group})

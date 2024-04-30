@@ -5,6 +5,7 @@ from job_card.form import JobCardForm, JobCardItemForm
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView
 from django.contrib import messages
+from django.conf import settings
 from django.shortcuts import redirect
 
 def create_job_card(request):
@@ -61,6 +62,7 @@ def create_job_card_item(request, pk):
                     previous_quantity= previous_quantity ,
                     description=''
                 )
+        
             else:
                 messages.warning(request, f'Not Enough Stock In Inventory For {product}')
             return redirect(request.path)  
