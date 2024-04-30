@@ -1,7 +1,7 @@
 from django import forms
 from django.forms import ModelForm
 from inventory.models import StockMovement
-from django.forms import ModelForm, TextInput, Select
+from django.forms import ModelForm, TextInput, Select, NumberInput
 
 
 class StockMovementForm(ModelForm):
@@ -11,7 +11,7 @@ class StockMovementForm(ModelForm):
         
         widgets = {
             'stock': TextInput(attrs={'class': 'form-control'}),
-            'movement_quantity': TextInput(attrs={'class': 'form-control'}),
+            'movement_quantity': NumberInput(attrs={'class': 'form-control', 'min': 0}),
             'description': TextInput(attrs={'class': 'form-control'}),
             'movement_type': Select(attrs={'class': 'form-control js-select2'}),
         }

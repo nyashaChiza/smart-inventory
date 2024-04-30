@@ -31,7 +31,7 @@ def get_movement_assessment(movement_entry: StockMovement):
     movement_type = movement_entry.movement_type
     
     # Example: Calculate total cost
-    total_cost = price * quantity
+    total_cost = price * quantity  
     # 2. Compare values against thresholds or limits
     # Example: Determine if quantity is within movement limits
     if 1 < quantity <= rm.randint(10,15):  # Define your movement limits
