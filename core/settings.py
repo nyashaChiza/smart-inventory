@@ -173,7 +173,7 @@ MEDIA_URL = "/media/"
 STATUS_CHOICES = (('Success', 'Success'), ('Failed', 'Failed'),('Pending', 'Pending'), ('Rejected', 'Rejected'))
 TRANSACTION_FREQUENCY_WEIGHT=2
 LOGGER = loguru.logger
-FRAUD__THRESHOLD = 65
+FRAUD_THRESHOLD = 65
 QUANTITY_WEIGHT=4
 ANOMALY_WEIGHT=7
 

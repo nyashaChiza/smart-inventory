@@ -1,4 +1,5 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import get_object_or_404, render, redirect
+from inventory.helpers.assessment import calculate_fraud_stats
 from inventory.models import StockMovement
 from job_card.models import JobCard
 from job_card.form import JobCardForm, JobCardItemForm
@@ -13,6 +14,8 @@ def create_job_card(request):
         form = JobCardForm(request.POST)
         if form.is_valid():
             # Save the form to create the invoice
+            form.instance.user = request.user
+                
             job_card = form.save()
             
             # Redirect to the create_invoice_item view with the invoice id in the URL
@@ -44,7 +47,7 @@ def create_job_card_item(request, pk):
             if product.quantity > form.cleaned_data['quantity']:
                 product.quantity = product.quantity - form.cleaned_data['quantity']
                 product.save()
-               
+                
                 form.instance.unit_price = product.price 
                 form.instance.job_card = job_card
                 form.save()
@@ -70,3 +73,20 @@ def create_job_card_item(request, pk):
         form = JobCardItemForm()
     
     return render(request, 'job_card/job_card_item/create.html', {'form': form, 'job_card': job_card})
+
+
+def assess_card(request, pk):
+    # Retrieve the specific entry from the model
+    job_card = get_object_or_404(JobCard, pk=pk)
+    
+    # Call your function to process the entry
+    processed_output = calculate_fraud_stats(job_card.get_movements())
+    
+    # Include the processed output in the context
+    context = {
+        'entry': job_card,
+        'output': processed_output,
+    }
+    
+    # Render the template with the context
+    return render(request, 'assessment/doc_detail.html', context)

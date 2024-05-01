@@ -30,7 +30,7 @@
             </div>
             <div class="form-group col-md-6">
                 <label class="form-label" for="cf-email-address">Quantity</label>
-                <input type="text" name="{{ form.quantity.name }}" class="form-control" id="cf">
+                <input type="number" min=0 name="{{ form.quantity.name }}" class="form-control" id="cf">
                 <input type="hidden" name="{{ form.invoice.name }}" value='{{ invoice.pk }}' class="form-control" id="cf-full-name">
 
             </div>

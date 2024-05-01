@@ -11,8 +11,8 @@ class DashboardListView(TemplateView):
         context = super().get_context_data(**kwargs)
         context['sales_data'] = data.get_sales_data(year)
         context['workshop_data'] = data.get_workshop_movements_data(year)
-        context['movement_data'] = data.get_movement_type_data()
-        context['status_data'] = data.get_status_data()
+        context['bottom_movement_data'] = data.get_bottom_movements()
+        context['top_movement_data'] = data.get_top_movements()
         
         return context
          

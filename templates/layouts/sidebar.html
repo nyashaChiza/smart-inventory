@@ -42,7 +42,7 @@
             </li>
 
             {% endif %}
-            {% if request.user|has_role:"Job Card" or request.user|has_role:"Admin"  %}
+            {% if request.user|has_role:"WorkShop" or request.user|has_role:"Manager" or request.user|has_role:"Admin"  %}
             <li class="nk-menu-item">
               <a href="{% url 'job_card_list' %}" class="nk-menu-link">
                 <span class="nk-menu-icon">
@@ -52,7 +52,7 @@
               </a>
             </li>
             {% endif %}
-            {% if request.user|has_role:"Sales" or request.user|has_role:"Admin"  %}
+            {% if request.user|has_role:"Sales" or request.user|has_role:"Manager" or request.user|has_role:"Admin"  %}
             <li class="nk-menu-item">
               <a href="{% url 'invoice_list' %}" class="nk-menu-link">
                 <span class="nk-menu-icon">

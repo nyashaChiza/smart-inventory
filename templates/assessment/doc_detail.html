@@ -1,0 +1,97 @@
+{% extends 'layouts/base.html' %} 
+{% load static %} 
+
+{% block navigation %}
+<div class="nk-content-body">
+  <div class="nk-block-head nk-block-head-sm">
+    <div class="nk-block-between py-3 px-3 bg-light rounded-3">
+      <div class="nk-block-head-content">
+        <h3 class="nk-block-title page-title">Document Assessment for {{ entry }}</h3>
+        <div class="nk-block-des text-soft"></div>
+      </div>
+      <ul class="nk-block-tools g-3">
+        <a
+          href="{% url 'assessment_list' %}"
+          class="btn btn-white btn-dim btn-outline-light mx-1"
+          >Back</a
+        >
+      </ul>
+    </div>
+    {% endblock %} 
+    
+    {% block content %}
+    <div class="card card-bordered card-full my-2 rounded-2">
+      <div class="card-inner-group">
+        <div class="card-inner">
+          <div class="card-title-group">
+            <div class="card-title">
+              <h6 class="title">ASSESSMENT REPORT</h6>
+            </div>
+            <div class="card-tools">
+              <span class="link">Score</span>
+            </div>
+          </div>
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>TC</span>
+            </div>
+            <div class="user-info">
+              <span>Clean Movements</span>
+            </div>
+            <div class="user-action">
+                {{ output.total_clean_movements}}
+            </div>
+          </div>
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>FM</span>
+            </div>
+            <div class="user-info">Flagged Movements</div>
+            <div class="user-action">
+              {{ output.total_flagged_movements}}
+            </div>
+          </div>
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>PM</span>
+            </div>
+            <div class="user-info">
+              <span>Pending Movments</span>
+            </div>
+            <div class="user-action">
+                {{ output.total_pending_movements}}
+            </div>
+          </div>
+        </div>
+        <div class="card-inner card-inner-md">
+          <div class="user-card">
+            <div class="user-avatar bg-primary-dim">
+              <span>OS</span>
+            </div>
+            <div class="user-info">
+                <span>Pending Movments</span>
+              </div>
+            <div class="user-action">
+                {{ output.overall_assessment}}
+            </div>
+          </div>
+        </div>
+        
+              
+        
+        
+      </div>
+    </div>
+
+    
+  </div>
+
+</div>
+{% endblock %}
+

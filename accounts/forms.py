@@ -29,6 +29,7 @@ class CustomUserUpdateForm(forms.ModelForm):
             "first_name",
             "last_name",
             "email",
+            "groups",
         )
         exclude = ["password"]
 
@@ -44,3 +45,8 @@ class GroupForm(forms.ModelForm):
     class Meta:
         model = Group
         fields = ['name']  # Customize fields as needed
+        
+    def __init__(self,  *args, **kwargs):
+        super(GroupForm, self).__init__(*args, **kwargs)    
+        for field_name, field in self.fields.items():
+            field.widget.attrs["class"] = "form-control"

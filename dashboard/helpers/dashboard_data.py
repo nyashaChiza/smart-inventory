@@ -3,7 +3,16 @@ from django.db.models import Sum, Count
 from django.utils import timezone
 
 class DashboardData:
+    def get_top_movements(self):
+        top_movements = StockMovement.objects.values('stock__name').annotate(total_movements=Count('id')).order_by('-total_movements')[:5]
+        top_results = [{'stock_name': movement['stock__name'], 'total_movements': movement['total_movements']} for movement in top_movements]
+        return top_results
 
+   
+    def get_bottom_movements(self):
+        bottom_movements = StockMovement.objects.values('stock__name').annotate(total_movements=Count('id')).order_by('total_movements')[:5]
+        bottom_results = [{'stock_name': movement['stock__name'], 'total_movements': movement['total_movements']} for movement in bottom_movements]
+        return bottom_results
     @staticmethod
     def get_sales_data(year: int):
         # Initialize dictionary to store total sales for each month
@@ -18,7 +27,7 @@ class DashboardData:
             else:
                 end_date = timezone.datetime(year, month+1, 1) - timezone.timedelta(days=1)
 
-            # Filter StockMovement instances for the current month
+            # Filter StockMovement instances for the current month and year
             sales_for_month = StockMovement.objects.filter(
                 movement_type='SALE',
                 created__gte=start_date,
@@ -47,7 +56,7 @@ class DashboardData:
             else:
                 end_date = timezone.datetime(year, month+1, 1) - timezone.timedelta(days=1)
 
-            # Filter StockMovement instances for the current month and workshop movements
+            # Filter StockMovement instances for the current month, year, and workshop movements
             workshop_movements_for_month = StockMovement.objects.filter(
                 movement_type='USAGE',  # Filter for workshop movements
                 created__gte=start_date,
@@ -61,33 +70,3 @@ class DashboardData:
             total_movements_per_month[month_abbr_name] = workshop_movements_for_month
 
         return total_movements_per_month
-    
-    
-    @staticmethod
-    def get_movement_type_data():
-        # Aggregate total price for each movement type
-        prices_by_type = StockMovement.objects.values('movement_type').annotate(
-            total_price=Sum('price')
-        )
-
-        # Create dictionary to store total prices per movement type
-        prices_data = {}
-        for entry in prices_by_type:
-            prices_data[entry['movement_type']] = entry['total_price']
-
-        return prices_data
-    
-    
-    @staticmethod
-    def get_status_data():
-        # Aggregate total movements for each movement status
-        movements_by_status = StockMovement.objects.values('movement_status').annotate(
-            total_movements=Count('id')
-        )
-
-        # Create dictionary to store total movements per movement status
-        movements_data = {}
-        for entry in movements_by_status:
-            movements_data[entry['movement_status']] = entry['total_movements']
-
-        return movements_data

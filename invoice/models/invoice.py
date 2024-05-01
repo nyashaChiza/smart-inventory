@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from inventory.models import StockMovement
 
 # Create your models here.
 class Invoice(models.Model):
@@ -19,3 +20,6 @@ class Invoice(models.Model):
     
     def total_amount(self):
         return sum(item.sub_total() for item in self.invoice_items.all())
+    
+    def get_movements(self):
+           return StockMovement.objects.filter(identifier=self.pk).all() 

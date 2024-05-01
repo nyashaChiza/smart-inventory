@@ -34,6 +34,8 @@
                 <thead>
                     <tr>
                         <th>Name</th>
+                        <th>User</th>
+                        <th>Card Type</th>
                         <th>No. Of Items</th>
                         <th>Total Amount</th>
                         <th>Created</th>
@@ -44,6 +46,8 @@
                     {% for card in cards %}
                     <tr>
                         <td>{{ card }}</td>
+                        <td>{{ card.user }}</td>
+                        <td>{{ card.card_type }}</td>
                         <td>{{ card.job_card_items.count }}</td>
                         <td>${{ card.total_amount|floatformat:2 }}</td>
                         <td>{{ card.created }}</td>
@@ -56,7 +60,7 @@
                                         <div class="dropdown-menu dropdown-menu-end">
                                             <ul class="link-list-opt no-bdr">
                                                 <li><a href="{% url 'job_card_details'  card.pk %}"><em class="icon ni ni-text-rich"></em><span>Details</span></a></li>
-                                                {% if request.user|has_role:"Admin" %}<li><a href="{% url 'job_card_details'  card.pk %}"><em class="icon ni ni-text-rich"></em><span>Generate Fraud Report</span></a></li>{% endif %}
+                                                {% if request.user|has_role:"Admin" or request.user|has_role:"Manager" %}<li><a href="{% url 'assess_card'  card.pk %}"><em class="icon ni ni-text-rich"></em><span>Generate Fraud Report</span></a></li>{% endif %}
                                             </ul>
                                         </div>
                                     </div>

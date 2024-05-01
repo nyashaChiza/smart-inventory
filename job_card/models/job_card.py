@@ -1,4 +1,5 @@
 from django.db import models
+from inventory.models import StockMovement
 from django.contrib.auth.models import User
 
 # Create your models here.
@@ -18,5 +19,8 @@ class JobCard(models.Model):
     
     def total_amount(self):
         return sum(item.sub_total() for item in self.job_card_items.all())
+    
+    def get_movements(self):
+       return StockMovement.objects.filter(identifier=self.pk).all() 
     
     
