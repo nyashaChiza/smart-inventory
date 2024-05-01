@@ -44,7 +44,7 @@
                     <tr>
                       
                         <td>{{ movement.name }}</td>
-                        <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ movement.status_comment }}"><a href="{% url 'assessment_detail' movement.pk %}">{{ movement.stock }}</a></td>
+                        <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ movement.status_comment }}"><a href="{% url 'assessment_detail' movement.pk %}">{{ movement.stock.name }}</a></td>
                         <td>{{ movement.movement_type }}</td>
                         <td>{{ movement.user }}</td>
                         <td>{{ movement.previous_quantity }}</td>
