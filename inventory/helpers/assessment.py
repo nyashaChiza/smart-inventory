@@ -78,10 +78,10 @@ def get_movement_assessment(movement_entry: StockMovement):
     return result
 
 def calculate_fraud_stats(stock_movements):
-    total_movements = len(stock_movements)
-    total_clean_movements = sum(1 for movement in stock_movements if movement.movement_status == 'Clean')
-    total_pending_movements = sum(1 for movement in stock_movements if movement.movement_status == 'Pending')
-    total_flagged_movements = sum(1 for movement in stock_movements if movement.movement_status == 'Flagged')
+    total_movements = len(stock_movements) if len(stock_movements) > 0 else 1 
+    total_clean_movements = sum(1 for movement in stock_movements if movement.movement_status == 'Clean')/total_movements * 100
+    total_pending_movements = sum(1 for movement in stock_movements if movement.movement_status == 'Pending')/total_movements * 100
+    total_flagged_movements = sum(1 for movement in stock_movements if movement.movement_status == 'Flagged')/total_movements * 100
     total_fraud_score = sum(get_movement_assessment(movement)['fraud_score'] for movement in stock_movements if movement.movement_status == 'Flagged')
 
     average_fraud_score = total_fraud_score / total_flagged_movements if total_flagged_movements > 0 else 0

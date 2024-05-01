@@ -41,7 +41,7 @@
               <span>Clean Movements</span>
             </div>
             <div class="user-action">
-                {{ output.total_clean_movements}}
+                {{ output.total_clean_movements|floatformat:2}}
             </div>
           </div>
         </div>
@@ -52,7 +52,7 @@
             </div>
             <div class="user-info">Flagged Movements</div>
             <div class="user-action">
-              {{ output.total_flagged_movements}}
+              {{ output.total_flagged_movements|floatformat:2}}
             </div>
           </div>
         </div>
@@ -65,7 +65,7 @@
               <span>Pending Movments</span>
             </div>
             <div class="user-action">
-                {{ output.total_pending_movements}}
+                {{ output.total_pending_movements|floatformat:2}}
             </div>
           </div>
         </div>
@@ -75,7 +75,7 @@
               <span>OS</span>
             </div>
             <div class="user-info">
-                <span>Pending Movments</span>
+                <span>Overall Assessment</span>
               </div>
             <div class="user-action">
                 {{ output.overall_assessment}}
