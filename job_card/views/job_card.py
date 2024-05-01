@@ -85,6 +85,7 @@ def assess_card(request, pk):
     # Include the processed output in the context
     context = {
         'entry': job_card,
+        'movements': job_card.get_movements(),
         'output': processed_output,
     }
     

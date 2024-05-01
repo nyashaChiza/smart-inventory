@@ -84,6 +84,7 @@ def assess_invoice(request, pk):
     # Include the processed output in the context
     context = {
         'entry': invoice,
+        'movements': invoice.get_movements(),
         'output': processed_output,
     }
     

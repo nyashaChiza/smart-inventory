@@ -91,7 +91,38 @@
 
     
   </div>
+  <div class="card-inner">
+    <table class="datatable-init-export nowrap table" data-export-title="Export">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Stock</th>
+                <th>Movement Type</th>
+                <th>Quantity</th>
+                <th>Status</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for movement in movements %}
+            <tr>
+              
+                <td>{{ movement.name }}</td>
+                <td  data-bs-toggle="tooltip" data-bs-placement="top" title="{{ movement.status_comment }}"><a href="{% url 'assessment_detail' movement.pk %}">{{ movement.stock.name }}</a></td>
+                <td>{{ movement.movement_type }}</td>
+                <td>{{ movement.movement_quantity }}</td>
+                <td>{{ movement.movement_status }}</td>
+                
+                
+            </tr> 
 
+            
+             {% endfor %}             
+            
+        </tbody>
+           
+    </table>
+</div>
 </div>
 {% endblock %}
 
